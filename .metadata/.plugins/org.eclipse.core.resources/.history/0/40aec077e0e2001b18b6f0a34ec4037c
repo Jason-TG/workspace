@@ -1,0 +1,36 @@
+package com.newlecture.web;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+	@WebServlet("/calc3")
+	public class Calc3 extends HttpServlet {
+
+		protected void service(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+
+			Cookie[] cookies = request.getCookies();
+
+			String value = request.getParameter("value");
+			String operator = request.getParameter("operator");
+			String dot = request.getParameter("dot");
+			
+			String exp = "";
+	 
+			Cookie expCookie = new Cookie("exp", exp);
+					
+			response.addCookie(expCookie);
+			response.sendRedirect("/calcpage");
+
+			} // service()
+
+		} // class Calc3
+
+
