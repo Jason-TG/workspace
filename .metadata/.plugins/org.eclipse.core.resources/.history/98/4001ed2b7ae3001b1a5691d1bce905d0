@@ -1,0 +1,33 @@
+
+
+package com.newlecture.web;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/calculator")
+public class Calculator extends HttpServlet {
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		if (req.getMethod().equals("GET")) {
+			// 전달방식은 대문자로 전달된다. 
+			System.out.println("GET 요청이 왔습니다.");
+		} else if (req.getMethod().equals("POST")) {
+			System.out.println("POST 요청이 왔습니다.");			
+		}
+		
+		super.service(req, resp);
+//		HttpServlet 클래스의 service 메서드는 원래 요청이 오면 get 요청과 post 요청을 구분해서 doGet 메서드와 doPost 메서드를 
+//		실행하도록 작성되어 있다. 
+//		service 메서드 또는 do 메서드를 각각 오버라이드하여 상황에 맞게 적용할 수 있다. 
+		
+	} //  service()
+ 
+} // Calculator {}

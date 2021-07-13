@@ -43,15 +43,25 @@ import javax.servlet.http.HttpServletResponse;
 				} catch (ScriptException e) {
 					e.printStackTrace();
 				} // t-c
+			} else if(operator != null && operator.equals("C")) {					
+				exp = "0";
 			} else {
-			exp += (value == null)? "" : value;
-			exp += (operator == null)? "" : operator;
-			exp += (dot == null)? "" : dot;
+			exp += ((value == null)? "" : value);
+			exp += ((operator == null)? "" : operator);
+			exp += ((dot == null)? "" : dot);
 			} // if-else
+				
+			String sum = "";
 			
 			Cookie expCookie = new Cookie("exp", exp);
-					
-			response.addCookie(expCookie);
+			
+			if(operator != null && operator.equals("C")) { 
+					expCookie.setMaxAge(0);
+			}
+			
+			response.addCookie(expCookie);		
+
+			
 			response.sendRedirect("calcpage");
 
 			} // service()

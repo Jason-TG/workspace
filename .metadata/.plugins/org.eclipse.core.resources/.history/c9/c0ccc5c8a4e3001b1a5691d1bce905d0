@@ -1,0 +1,66 @@
+
+
+package com.newlecture.web;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/spag")
+public class Spag extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		int num = 0;
+		String num_ = request.getParameter("n");
+		if (num_ != null && !num_.equals("")) {
+			num = Integer.parseInt(num_);
+		}
+		
+		String result=null;
+		
+		if (num%2 != 0) {
+			result = "홀수";
+		} else {
+			result = "짝수";
+		}	
+		
+		request.setAttribute("result", result);
+			
+//		아래 4개는 서버에 저장	
+//		페이지 내에서의 저장소는 pageContext,
+//		포워드 관계에서 사용하는 저장소는 request,
+//		세션에서 사용하는 저장소는 session,
+//		모든 서블릿이 공유하는 저장소는 servletContext,
+			
+//		클라이언트가 받아서 사용하는 저장소는 cookie
+			
+//		redirect는 새로고침처럼 서버 밖으로 나가서 새로 페이지에 대한 get 요청을 하는 것이고,	
+//		forward는 리퀘스트 객체가 가진 정보를 그대로 갖고 페이지 이동을 한다. 
+//		dispatcher가 포워드 메서드를 가진다..	
+		RequestDispatcher dispatcher 
+			= request.getRequestDispatcher("/spag.jsp");
+		dispatcher.forward(request, response);
+			
+		} // if-else
+	} // doGet()
+	
+} // spag{}
+
+
+
+
+
+
+
+
+
+
+
+
