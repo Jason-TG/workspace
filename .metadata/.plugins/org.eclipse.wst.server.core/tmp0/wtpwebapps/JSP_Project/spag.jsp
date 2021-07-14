@@ -24,7 +24,9 @@ pageContext.setAttribute("result", "hello");
 	<br /> ${notice.title}
 	<br /> ${result}
 	<br /> ${empty param.n ? '값이 비어있습니다.' : param.n } 
-	<br /> ${header.accept}
+	<br /> ${param.n/2} 
+	<br /> ${header.cookie}
+	<br /> ${header.host}
 
 </body>
 
