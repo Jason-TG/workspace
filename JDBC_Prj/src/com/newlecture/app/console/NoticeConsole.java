@@ -13,6 +13,8 @@ public class NoticeConsole {
 	private NoticeService service;
 	private int page;
 	private int count;
+	private String searchField = "";
+	private String searchWord = "";
 
 	public NoticeConsole() {
 		service = new NoticeService();
@@ -23,7 +25,7 @@ public class NoticeConsole {
 
 		Scanner scan = new Scanner(System.in);
 
-		System.out.printf("1. 상세조회 / 2. 이전 / 3. 다음 / 4. 글쓰기 / 5. 종료 >> ");
+		System.out.printf("1. 상세조회 / 2. 이전 / 3. 다음 / 4. 글쓰기 / 5. 검색 / 6. 종료 >> ");
 
 		String menu_ = scan.nextLine();
 		int menu = Integer.parseInt(menu_);
@@ -34,6 +36,26 @@ public class NoticeConsole {
 	public void printNoticeList() throws ClassNotFoundException, SQLException {
 
 		List<Notice> list = service.getList(page);
+		int count = service.getCount();
+		int lastPage = count / 10;
+		lastPage = count % 10 == 0 ? lastPage : lastPage + 1;
+
+		System.out.println("───────────────────");
+		System.out.printf("<공지사항> 총 %d개의 게시글\n", count);
+		System.out.println("───────────────────");
+		for (Notice notice : list) {
+			System.out.printf("%d. %s / %s / %s \n", notice.getId(), notice.getTitle(), notice.getWriterId(),
+					notice.getRegDate());
+		}
+		System.out.println("───────────────────");
+		System.out.printf("               %d / %d pages \n", page, lastPage);
+		System.out.println();
+
+	} // printNoticeList()
+	
+	public void printSerchedList() throws ClassNotFoundException, SQLException {
+
+		List<Notice> list = service.getSearchedList(page, searchField, searchWord);
 		int count = service.getCount();
 		int lastPage = count / 10;
 		lastPage = count % 10 == 0 ? lastPage : lastPage + 1;
@@ -76,4 +98,34 @@ public class NoticeConsole {
 		page++;
 	} // moveNextList()
 
+	public void inputSearchWord() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("검색 범주(title/content/writerId)중에 하나를 입력하세요");
+		System.out.print(">");
+		searchField  = scan.nextLine();
+		
+		System.out.print("검색어 > ");
+		searchWord  = scan.nextLine();
+		
+	}
+
 } // NoticeConsole {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

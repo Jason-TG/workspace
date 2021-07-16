@@ -62,6 +62,49 @@ public class NoticeService {
 
 	} // getList()
 	
+	public List<Notice> getSearchedList(int page, String field, String query)
+			throws ClassNotFoundException, SQLException {
+
+		String sql = "SELECT * FROM NOTICE_VIEW "
+				+ "WHERE "+field+" LIKE ? AND NUM BETWEEN ? AND ?";
+		
+		int start = 1 + (page-1)*10; // 1, 11, 21, 31
+//		등차수열 식 : a1 + (n-1)*d || a1:초항, n:차수, d:각 항의 차
+		int end = 10*page; // 10, 20, 30, 40
+
+		Class.forName(driver);
+		Connection con = DriverManager.getConnection(url, userid, passwd);
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, "%"+query+"%");
+		pstmt.setInt(2, start);
+		pstmt.setInt(2, end);
+		ResultSet rs = pstmt.executeQuery();
+
+		List<Notice> list = new ArrayList<>();
+
+		while (rs.next()) {
+			int id = rs.getInt("ID");
+			String title = rs.getString("TITLE");
+			String writerId = rs.getString("WRITER_ID");
+			Date regDate = rs.getDate("REGDATE");
+			String content = rs.getString("CONTENT");
+			int hit = rs.getInt("HIT");
+			String files = rs.getString("FILES");
+
+			Notice notice = new Notice(id, title, writerId, regDate, content, hit, files);
+
+			list.add(notice);
+
+		} // while
+
+		rs.close();
+		pstmt.close();
+		con.close();
+
+		return list;
+
+	} // getList()
+	
 	public int getCount() 
 			throws ClassNotFoundException, SQLException{
 		

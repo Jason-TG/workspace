@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import com.newlecture.app.console.NoticeConsole;
 import com.newlecture.app.service.NoticeService;
 
-public class JavaViewPage {
+public class NoticeController {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
@@ -28,12 +28,15 @@ public class JavaViewPage {
 				break;
 			case 4: // 글쓰기
 				break;
-			case 5: // 종료
+			case 5: // 검색
+				console.inputSearchWord();
+				break;
+			case 6: // 종료
 				System.out.println("Bye~~");
 				break EXIT;
 //				라벨을 붙이고 break를 하면 라벨이 있는 곳까지 break
 			default:
-				System.out.println("< 사용방법> 메뉴는 1~4까지만 입력 가능합니다");
+				System.out.println("< 사용방법> 메뉴는 1~5까지만 입력 가능합니다");
 				break;
 
 			} // s-c{}
@@ -42,4 +45,4 @@ public class JavaViewPage {
 
 	} // main()
 
-}// JavaViewPage{}
+}// NoticeController{}
