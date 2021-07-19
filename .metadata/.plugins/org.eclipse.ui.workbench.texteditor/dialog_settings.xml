@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="para"/>
 			<item value="\r\n"/>
 			<item value="&quot; "/>
 			<item value="=&quot;"/>
